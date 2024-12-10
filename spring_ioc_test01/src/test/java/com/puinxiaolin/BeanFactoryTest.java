@@ -22,5 +22,6 @@ public class BeanFactoryTest {
 
 //        UserDao userDao = (UserDao) beanFactory.getBean("userDao");
 //        System.out.println(userDao);
+        
     }
 }

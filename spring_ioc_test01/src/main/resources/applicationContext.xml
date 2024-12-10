@@ -3,11 +3,47 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--  id、name  -->
+    <!--  如果不配置 id，默认使用全限类名作为 bean 的名称  -->
+    <!--    <bean class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!-- 配置id（如果还有别名，id 优先于别名） -->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!--  配置别名（默认第一个就是 bean 名称）  -->
+    <!--    <bean name="us, US" class="com.puxinxiaolin.service.impl.UserServiceImpl" scope="prototype">-->
+
+    <!-- scope -->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" scope="prototype">-->
+    <!-- singleton（默认） -->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!-- lazy-init（默认是false） -->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!-- init-method、destroy-method -->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" init-method="init" destroy-method="destroy">-->
+    <!-- bean的无参（默认） / 有参构造 -->
     <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">
-        <!-- 在 userServiceImpl 调用 userDao -->
+        <!-- 有参构造设置参数值 -->
+        <constructor-arg name="name" value="lin"></constructor-arg>
+        <!-- 注入属性，在 userServiceImpl 调用 userDao -->
         <property name="userDao" ref="userDao"></property>
     </bean>
 
     <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
 
+
+    <!-- 3.1 静态工厂方法 / 实例工厂方法 -->
+    <!-- constructor-arg 不仅可以设置构造函数的参数，还能设置构造 bean 方法的参数 -->
+    <!-- 不是把MyBeanFactory1作为对象，而是通过这个工厂的静态方法的返回值作为对象，bean名称为userDao1 -->
+    <bean id="userDao1" class="com.puxinxiaolin.factory.MyBeanFactory1" factory-method="userDao">
+        <constructor-arg name="name" value="xiaolin"></constructor-arg>
+        <constructor-arg name="age" value="20"></constructor-arg>
+    </bean>
+    <!-- 实例工厂方法需要先有对象才能通过对象调用方法 -->
+    <bean id="myBeanFactory2" class="com.puxinxiaolin.factory.MyBeanFactory2"></bean>
+    <bean id="userDao2" factory-bean="myBeanFactory2" factory-method="userDao">
+        <constructor-arg name="userName" value="JAVAer xiaolin"></constructor-arg>
+    </bean>
+
+    <!-- 3.2 FactoryBean -->
+    <!-- 返回的对象是重写的 getObject 方法返回的对象 -->
+    <bean id="userDao3" class="com.puxinxiaolin.factory.MyBeanFactory3"></bean>
 </beans>
