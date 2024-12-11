@@ -46,11 +46,11 @@ public class UserServiceImpl implements UserService, InitializingBean {
 
     @Override
     public void show() {
-        System.out.println("stringList = " + stringList);
-        System.out.println("userDaoList = " + userDaoList);
-        System.out.println("stringSet = " + stringSet);
-        System.out.println("userDaoSet = " + userDaoSet);
-        System.out.println("map = " + map);
+//        System.out.println("stringList = " + stringList);
+//        System.out.println("userDaoList = " + userDaoList);
+//        System.out.println("stringSet = " + stringSet);
+//        System.out.println("userDaoSet = " + userDaoSet);
+//        System.out.println("map = " + map);
         System.out.println("properties = " + properties);
     }
 
