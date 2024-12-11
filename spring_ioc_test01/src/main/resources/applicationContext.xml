@@ -20,12 +20,12 @@
     <!-- init-method、destroy-method -->
     <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" init-method="init" destroy-method="destroy">-->
     <!-- bean的无参（默认） / 有参构造 -->
-    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">
-        <!-- 有参构造设置参数值 -->
-        <constructor-arg name="name" value="lin"></constructor-arg>
-        <!-- 注入属性，在 userServiceImpl 调用 userDao -->
-        <property name="userDao" ref="userDao"></property>
-    </bean>
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!--        &lt;!&ndash; 有参构造设置参数值 &ndash;&gt;-->
+    <!--        <constructor-arg name="name" value="lin"></constructor-arg>-->
+    <!--        &lt;!&ndash; 注入属性，在 userServiceImpl 调用 userDao &ndash;&gt;-->
+    <!--        <property name="userDao" ref="userDao"></property>-->
+    <!--    </bean>-->
 
     <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
 
@@ -46,4 +46,50 @@
     <!-- 3.2 FactoryBean -->
     <!-- 返回的对象是重写的 getObject 方法返回的对象 -->
     <bean id="userDao3" class="com.puxinxiaolin.factory.MyBeanFactory3"></bean>
+
+
+    <!-- 3. 注入集合等类型 -->
+    <!-- 注入 List<String> -->
+    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">
+        <property name="stringList">
+            <list>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </list>
+        </property>
+        <property name="userDaoList">
+            <list>
+                <ref bean="userDao"></ref>
+                <ref bean="userDao1"></ref>
+            </list>
+        </property>
+        <property name="stringSet">
+            <set>
+                <value>a</value>
+                <value>b</value>
+                <value>c</value>
+            </set>
+        </property>
+        <property name="userDaoSet">
+            <set>
+                <ref bean="userDao"></ref>
+                <ref bean="userDao1"></ref>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="one" value-ref="userDao3"></entry>
+                <entry key="two" value-ref="userDao5"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="one">NO.1</prop>
+                <prop key="two">NO.2</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userDao5" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
 </beans>

@@ -1,5 +1,6 @@
 package com.puinxiaolin;
 
+import com.puxinxiaolin.service.UserService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationContextTest {
@@ -31,13 +32,18 @@ public class ApplicationContextTest {
         // 需要显式关闭（用子类 ClassPathXmlApplicationContext）
 //        context.close();
 
-
         // 测试静态/实例工厂方法/FactoryBean
 //        Object staticFactory = context.getBean("userDao1");
 //        System.out.println(staticFactory);
 //        Object exampleFactory = context.getBean("userDao2");
 //        System.out.println(exampleFactory);
-        Object userDao3 = context.getBean("userDao3");
-        System.out.println(userDao3);
+//        Object userDao3 = context.getBean("userDao3");
+//        System.out.println(userDao3);
+
+
+        // 测试 list
+        UserService userService = (UserService) context.getBean("userService");
+        userService.show();
+        System.out.println(userService);
     }
 }
