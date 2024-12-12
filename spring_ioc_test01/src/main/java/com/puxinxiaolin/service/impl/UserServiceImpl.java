@@ -12,37 +12,37 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, InitializingBean {
 
     // 注入 List
-    private List<String> stringList;
-
-    public void setStringList(List<String> stringList) {
-        this.stringList = stringList;
-    }
-
-    private List<UserDao> userDaoList;
-
-    public void setUserDaoList(List<UserDao> userDaoList) {
-        this.userDaoList = userDaoList;
-    }
-
-    private Set<String> stringSet;
-    public void setStringSet(Set<String> stringSet) {
-        this.stringSet = stringSet;
-    }
-
-    private Set<UserDao> userDaoSet;
-    public void setUserDaoSet(Set<UserDao> userDaoSet) {
-        this.userDaoSet = userDaoSet;
-    }
-
-    private Map<String, UserDao> map;
-    public void setMap(Map<String, UserDao> map) {
-        this.map = map;
-    }
-
-    private Properties properties;
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
+//    private List<String> stringList;
+//
+//    public void setStringList(List<String> stringList) {
+//        this.stringList = stringList;
+//    }
+//
+//    private List<UserDao> userDaoList;
+//
+//    public void setUserDaoList(List<UserDao> userDaoList) {
+//        this.userDaoList = userDaoList;
+//    }
+//
+//    private Set<String> stringSet;
+//    public void setStringSet(Set<String> stringSet) {
+//        this.stringSet = stringSet;
+//    }
+//
+//    private Set<UserDao> userDaoSet;
+//    public void setUserDaoSet(Set<UserDao> userDaoSet) {
+//        this.userDaoSet = userDaoSet;
+//    }
+//
+//    private Map<String, UserDao> map;
+//    public void setMap(Map<String, UserDao> map) {
+//        this.map = map;
+//    }
+//
+//    private Properties properties;
+//    public void setProperties(Properties properties) {
+//        this.properties = properties;
+//    }
 
     @Override
     public void show() {
@@ -51,7 +51,8 @@ public class UserServiceImpl implements UserService, InitializingBean {
 //        System.out.println("stringSet = " + stringSet);
 //        System.out.println("userDaoSet = " + userDaoSet);
 //        System.out.println("map = " + map);
-        System.out.println("properties = " + properties);
+//        System.out.println("properties = " + properties);
+        System.out.println(userDao);
     }
 
     //    public UserServiceImpl() {

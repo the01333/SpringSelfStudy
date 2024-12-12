@@ -5,6 +5,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationContextTest {
     public static void main(String[] args) {
+        // profile 指定环境
+        System.setProperty("spring.profiles.active", "dev");
+
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         // 1.1 根据 id 获取（id 会变成 bean 的名称）
 //        UserService exampleFactory = (UserService) context.getBean("exampleFactory");
@@ -42,7 +45,17 @@ public class ApplicationContextTest {
 
 
         // 测试 list
-        UserService userService = (UserService) context.getBean("userService");
+//        UserService userService = (UserService) context.getBean("userService");
+//        userService.show();
+//        System.out.println(userService);
+
+        // 测试 beans -> profile
+//        UserService userService = (UserService) context.getBean("userService1");
+//        userService.show();
+//        System.out.println(userService);
+
+//        UserService userService = (UserService) context.getBean("userService");
+        UserService userService = (UserService) context.getBean("usce");
         userService.show();
         System.out.println(userService);
     }

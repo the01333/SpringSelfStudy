@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <context:property-placeholder></context:property-placeholder>
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <dubbo:annotation></dubbo:annotation>
+
+    <import resource="classpath:applicationContext-user.xml"></import>
+    <import resource="classpath:applicationContext-order.xml"></import>
 
     <!--  id、name  -->
     <!--  如果不配置 id，默认使用全限类名作为 bean 的名称  -->
@@ -10,6 +28,9 @@
     <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
     <!--  配置别名（默认第一个就是 bean 名称）  -->
     <!--    <bean name="us, US" class="com.puxinxiaolin.service.impl.UserServiceImpl" scope="prototype">-->
+    <!-- 单独配置别名 -->
+    <!--    <alias name="userService" alias="us"></alias>-->
+    <!--    <alias name="userService" alias="US"></alias>-->
 
     <!-- scope -->
     <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" scope="prototype">-->
@@ -26,9 +47,6 @@
     <!--        &lt;!&ndash; 注入属性，在 userServiceImpl 调用 userDao &ndash;&gt;-->
     <!--        <property name="userDao" ref="userDao"></property>-->
     <!--    </bean>-->
-
-    <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
-
 
     <!-- 3.1 静态工厂方法 / 实例工厂方法 -->
     <!-- constructor-arg 不仅可以设置构造函数的参数，还能设置构造 bean 方法的参数 -->
@@ -50,46 +68,59 @@
 
     <!-- 3. 注入集合等类型 -->
     <!-- 注入 List<String> -->
-    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">
-        <property name="stringList">
-            <list>
-                <value>A</value>
-                <value>B</value>
-                <value>C</value>
-            </list>
-        </property>
-        <property name="userDaoList">
-            <list>
-                <ref bean="userDao"></ref>
-                <ref bean="userDao1"></ref>
-            </list>
-        </property>
-        <property name="stringSet">
-            <set>
-                <value>a</value>
-                <value>b</value>
-                <value>c</value>
-            </set>
-        </property>
-        <property name="userDaoSet">
-            <set>
-                <ref bean="userDao"></ref>
-                <ref bean="userDao1"></ref>
-            </set>
-        </property>
-        <property name="map">
-            <map>
-                <entry key="one" value-ref="userDao3"></entry>
-                <entry key="two" value-ref="userDao5"></entry>
-            </map>
-        </property>
-        <property name="properties">
-            <props>
-                <prop key="one">NO.1</prop>
-                <prop key="two">NO.2</prop>
-            </props>
-        </property>
-    </bean>
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl">-->
+    <!--        <property name="stringList">-->
+    <!--            <list>-->
+    <!--                <value>A</value>-->
+    <!--                <value>B</value>-->
+    <!--                <value>C</value>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--        <property name="userDaoList">-->
+    <!--            <list>-->
+    <!--                <ref bean="userDao"></ref>-->
+    <!--                <ref bean="userDao1"></ref>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--        <property name="stringSet">-->
+    <!--            <set>-->
+    <!--                <value>a</value>-->
+    <!--                <value>b</value>-->
+    <!--                <value>c</value>-->
+    <!--            </set>-->
+    <!--        </property>-->
+    <!--        <property name="userDaoSet">-->
+    <!--            <set>-->
+    <!--                <ref bean="userDao"></ref>-->
+    <!--                <ref bean="userDao1"></ref>-->
+    <!--            </set>-->
+    <!--        </property>-->
+    <!--        <property name="map">-->
+    <!--            <map>-->
+    <!--                <entry key="one" value-ref="userDao3"></entry>-->
+    <!--                <entry key="two" value-ref="userDao5"></entry>-->
+    <!--            </map>-->
+    <!--        </property>-->
+    <!--        <property name="properties">-->
+    <!--            <props>-->
+    <!--                <prop key="one">NO.1</prop>-->
+    <!--                <prop key="two">NO.2</prop>-->
+    <!--            </props>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
     <bean id="userDao5" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
+
+    <!--    <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>-->
+    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" autowire="byName"></bean>-->
+
+    <beans profile="dev">
+        <bean id="userService1" class="com.puxinxiaolin.service.impl.UserServiceImpl"></bean>
+    </beans>
+
+    <beans profile="test">
+        <bean id="userDao6" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
+    </beans>
+
+
 </beans>
