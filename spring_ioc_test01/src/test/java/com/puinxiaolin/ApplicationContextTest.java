@@ -1,7 +1,10 @@
 package com.puinxiaolin;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.puxinxiaolin.beans.OtherBean;
+import com.puxinxiaolin.beans.XxxBean;
 import com.puxinxiaolin.dao.PersonDao;
+import com.puxinxiaolin.dao.UserDao;
 import com.puxinxiaolin.dao.impl.PersonDaoImpl;
 import com.puxinxiaolin.service.UserService;
 import org.apache.ibatis.io.Resources;
@@ -116,7 +119,14 @@ public class ApplicationContextTest {
 //        Object userService = context.getBean("userService");
 //        System.out.println(userService);
 
-        PersonDao personDao = context.getBean(PersonDao.class);
-        System.out.println(personDao);
+//        PersonDao personDao = context.getBean(PersonDao.class);
+//        System.out.println(personDao);
+
+//        OtherBean otherBean = context.getBean(OtherBean.class);
+//        XxxBean xxxBean = context.getBean(XxxBean.class);
+//        System.out.println(otherBean);
+//        System.out.println(xxxBean);
+        UserDao userDao = (UserDao) context.getBean("userDao");
+        userDao.show();
     }
 }
