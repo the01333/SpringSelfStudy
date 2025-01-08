@@ -15,11 +15,54 @@
        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <context:property-placeholder></context:property-placeholder>
-    <mvc:annotation-driven></mvc:annotation-driven>
-    <dubbo:annotation></dubbo:annotation>
+    <!--    <mvc:annotation-driven></mvc:annotation-driven>-->
+    <!--    <dubbo:annotation></dubbo:annotation>-->
 
     <import resource="classpath:applicationContext-user.xml"></import>
     <import resource="classpath:applicationContext-order.xml"></import>
+
+
+<!--    <bean class="com.puxinxiaolin.processor.MyBeanFactoryPostProcessor"></bean>-->
+    <bean class="com.puxinxiaolin.processor.MyBeanDefinitionRegistryPostProcessor"></bean>
+
+
+    <!-- mybatis -->
+    <!-- 静态工厂方法 -->
+    <bean id="in" class="org.apache.ibatis.io.Resources" factory-method="getResourceAsStream">
+        <constructor-arg name="resource" value="mybatis-config.xml"></constructor-arg>
+    </bean>
+    <!-- 无参构造实例化 -->
+    <bean id="builder" class="org.apache.ibatis.session.SqlSessionFactoryBuilder"></bean>
+    <!-- 实例工厂方法 -->
+    <bean id="SqlSessionFactory" factory-bean="builder" factory-method="build">
+        <constructor-arg name="inputStream" ref="in"></constructor-arg>
+    </bean>
+
+    <!-- 日期 -->
+    <bean id="simpleDateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg name="pattern" value="yyyy-MM-dd HH:mm:ss"></constructor-arg>
+    </bean>
+    <bean id="date" factory-bean="simpleDateFormat" factory-method="parse">
+        <constructor-arg name="source" value="2023-08-07 12:00:00"></constructor-arg>
+    </bean>
+
+    <!-- 配置druid -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/mysql"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+
+    <!-- 配置mysql -->
+    <bean id="clazz" class="java.lang.Class" factory-method="forName">
+        <constructor-arg name="className" value="com.mysql.cj.jdbc.Driver"></constructor-arg>
+    </bean>
+    <bean id="connection" class="java.sql.DriverManager" factory-method="getConnection" scope="prototype">
+        <constructor-arg name="url" value="jdbc:mysql://localhost:3306/mysql"></constructor-arg>
+        <constructor-arg name="user" value="root"></constructor-arg>
+        <constructor-arg name="password" value="root"></constructor-arg>
+    </bean>
 
     <!--  id、name  -->
     <!--  如果不配置 id，默认使用全限类名作为 bean 的名称  -->
@@ -111,8 +154,8 @@
 
     <bean id="userDao5" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
 
-    <!--    <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>-->
-    <!--    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl" autowire="byName"></bean>-->
+        <bean id="userDao" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
+        <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl"></bean>
 
     <beans profile="dev">
         <bean id="userService1" class="com.puxinxiaolin.service.impl.UserServiceImpl"></bean>
@@ -121,6 +164,5 @@
     <beans profile="test">
         <bean id="userDao6" class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>
     </beans>
-
 
 </beans>
