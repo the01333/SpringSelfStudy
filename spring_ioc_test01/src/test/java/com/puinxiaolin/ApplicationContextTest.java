@@ -126,7 +126,12 @@ public class ApplicationContextTest {
 //        XxxBean xxxBean = context.getBean(XxxBean.class);
 //        System.out.println(otherBean);
 //        System.out.println(xxxBean);
-        UserDao userDao = (UserDao) context.getBean("userDao");
-        userDao.show();
+
+//        UserDao userDao = (UserDao) context.getBean("userDao");
+//        userDao.show();
+
+        UserService userService = context.getBean(UserService.class);
+//        System.out.println(userService);
+        userService.show();
     }
 }

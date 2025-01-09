@@ -1,11 +1,24 @@
 package com.puxinxiaolin.dao.impl;
 
 import com.puxinxiaolin.dao.UserDao;
+import com.puxinxiaolin.service.UserService;
+import com.puxinxiaolin.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.annotation.PostConstruct;
 
 public class UserDaoImpl implements UserDao {
+
+    private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public UserDaoImpl() {
+//        System.out.println("UserDao创建");
+    }
+
     @Override
     public void show() {
         System.out.println("UserDao.show...");
