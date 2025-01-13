@@ -6,6 +6,10 @@
       <list>
         <option value="$PROJECT_DIR$/spring_ioc_test01/pom.xml" />
         <option value="$PROJECT_DIR$/spring_ioc_test02/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_aop_test01/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_transaction_test/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_webmvc_test01/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_webmvc_test02/pom.xml" />
       </list>
     </option>
   </component>

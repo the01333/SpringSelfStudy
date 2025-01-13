@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.puxinxiaolin.controller"/>
+
+    <!-- 可以被 <mvc:annotation-driven/> 替代 -->
+    <!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+    <!--    &lt;!&ndash; 配置 Json 转换器，实现自动转换 &ndash;&gt;-->
+    <!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+    <!--        <property name="messageConverters">-->
+    <!--            <list>-->
+    <!--                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <mvc:annotation-driven/>
+
+    <!-- 开启文件上传支持（引入依赖） -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>      <!-- 设置编码格式 -->
+        <property name="maxUploadSizePerFile" value="1048576"/>     <!-- 设置单个文件最大上传大小 -->
+        <property name="maxUploadSize" value="3145728"/>        <!-- 设置总文件上传大小 -->
+        <property name="maxInMemorySize" value="40960"/>        <!-- 设置内存中缓存大小 -->
+    </bean>
+
+    <!-- 2. 配置静态资源的路径映射 -->
+    <!--    <mvc:resources mapping="/img/*" location="/image/"/>-->
+
+    <!-- 3. 向容器中注册静态资源处理器 -->
+    <mvc:default-servlet-handler/>
+
+
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 要拦截的请求 -->
+            <mvc:mapping path="/**"/>
+            <bean class="com.puxinxiaolin.interceptors.MyInterceptor1"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.puxinxiaolin.interceptors.MyInterceptor2"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>

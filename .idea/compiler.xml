@@ -7,6 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring_ioc_test02" />
+        <module name="spring_webmvc_test01" />
+        <module name="spring_webmvc_test02" />
+        <module name="spring_transaction_test" />
+        <module name="spring_aop_test01" />
         <module name="spring_ioc_test01" />
       </profile>
     </annotationProcessing>

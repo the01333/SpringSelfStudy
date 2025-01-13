@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置目标类 -->
+    <bean id="userService" class="com.puxinxiaolin.service.impl.UserServiceImpl"></bean>
+    <!-- 配置通知类 -->
+    <bean id="myAdvice" class="com.puxinxiaolin.advice.MyAdvice"></bean>
+    <!-- aop 配置 -->
+    <aop:config>
+        <!-- 配置切点表达式: 哪些方法要被增强 -->
+        <aop:pointcut id="myPointcut"
+                      expression="execution(void com.puxinxiaolin.service.impl.*.*(..))"/>
+<!--        <aop:pointcut id="myPointcut2"-->
+<!--                      expression="execution(void com.puxinxiaolin.service..UserServiceImpl.show2())"/>-->
+        <!-- 配置织入: 配置哪些切点和那些通知结合 -->
+        <aop:aspect ref="myAdvice">
+<!--            <aop:before method="beforeAdvice" pointcut-ref="myPointcut"></aop:before>-->
+<!--            <aop:after method="afterAdvice" pointcut="execution(void com.puxinxiaolin.service..UserServiceImpl.show1())"></aop:after>-->
+
+            <aop:before method="beforeAdvice" pointcut-ref="myPointcut"></aop:before>
+<!--            <aop:after-returning method="afterReturningAdvice" pointcut-ref="myPointcut"></aop:after-returning>-->
+<!--            <aop:around method="aroundAdvice" pointcut-ref="myPointcut"></aop:around>-->
+            <aop:after-throwing method="afterThrowingAdvice" pointcut-ref="myPointcut" throwing="ex"></aop:after-throwing>
+        </aop:aspect>
+    </aop:config>
+
+    <!--    <bean class="com.puxinxiaolin.processor.MockAopBeanPostProcessor"></bean>-->
+
+    <!--    <bean class="com.puxinxiaolin.dao.impl.UserDaoImpl"></bean>-->
+
+</beans>
